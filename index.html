@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BENİMLE EVLENİR MİSN PANPİS!!!?</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-image: url('arkaplan.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            height: 380px; 
+            position: relative;
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .buttons {
+            width: 100%;
+            position: relative;
+            height: 300px;
+            margin-top: auto;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #evetBtn {
+            background-color: #ff4d6d;
+            color: white;
+            position: absolute;
+            left: 30px;
+            top: 25px;
+            transition: transform 0.2s ease;
+            z-index: 2;
+        }
+
+        #evetBtn:hover {
+            background-color: #ff758c;
+            transform: scale(1.05);
+        }
+
+        #hayirBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute;
+            left: auto;
+            right: 30px;
+            top: 25px;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="cardContainer">
+        <img id="mainGif" src="ayar.gif" alt="pukpuk">
+        
+        <h1 id="questionText">PANPİS BENNİMLE EVLENİR MİSİN??</h1>
+        
+        <div class="buttons" id="buttonArea">
+            <button id="evetBtn" onclick="kabulEt()">Evet</button>
+            <button id="hayirBtn" onmouseover="kacir(event)" ontouchstart="kacir(event)">Hayır</button>
+        </div>
+    </div>
+
+    <!-- Müzik dosyası -->
+    <audio id="sarki" src="sarki.m4a" preload="auto"></audio>
+
+    <script>
+        const hayirBtn = document.getElementById('hayirBtn');
+        const evetBtn = document.getElementById('evetBtn');
+        const cardContainer = document.getElementById('cardContainer');
+        const mainGif = document.getElementById('mainGif');
+        const questionText = document.getElementById('questionText');
+        const buttonArea = document.getElementById('buttonArea');
+        const sarki = document.getElementById('sarki');
+
+        function kacir(e) {
+            if(e) e.preventDefault();
+
+            const areaWidth = buttonArea.clientWidth;
+            const areaHeight = buttonArea.clientHeight;
+
+            const buttonWidth = hayirBtn.offsetWidth;
+            const buttonHeight = hayirBtn.offsetHeight;
+
+            const evetLeft = evetBtn.offsetLeft;
+            const evetTop = evetBtn.offsetTop;
+            const evetRight = evetLeft + evetBtn.offsetWidth;
+            const evetBottom = evetTop + evetBtn.offsetHeight;
+
+            const maxX = areaWidth - buttonWidth;
+            const maxY = areaHeight - buttonHeight;
+
+            let randomX;
+            let randomY;
+
+            let deneme = 0;
+
+            // Evet butonuna fazla yaklaşmaması için tekrar tekrar konum deniyoruz
+            do {
+                randomX = Math.floor(Math.random() * Math.max(maxX, 1));
+                randomY = Math.floor(Math.random() * Math.max(maxY, 1));
+
+                const hayirRight = randomX + buttonWidth;
+                const hayirBottom = randomY + buttonHeight;
+
+                // Aralarında en az 25px mesafe olsun
+                const bosluk = 25;
+
+                const cakisma =
+                    randomX < evetRight + bosluk &&
+                    hayirRight > evetLeft - bosluk &&
+                    randomY < evetBottom + bosluk &&
+                    hayirBottom > evetTop - bosluk;
+
+                deneme++;
+
+                if (!cakisma || deneme > 100) {
+                    break;
+                }
+
+            } while (true);
+
+            hayirBtn.style.left = randomX + 'px';
+            hayirBtn.style.top = randomY + 'px';
+            hayirBtn.style.right = 'auto';
+        }
+
+        function kabulEt() {
+            mainGif.src = 'mutlu.gif';
+            questionText.innerHTML = "KABUL EDECEGİNİ BİLİYİRDİM!! ";
+            buttonArea.style.display = 'none';
+            
+            sarki.play().catch(error => {
+                console.log("Müzik çalınamadı:", error);
+            });
+        }
+    </script>
+
+</body>
+</html>
