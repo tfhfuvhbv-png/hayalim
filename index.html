@@ -102,19 +102,15 @@
 <body>
 
     <div class="card" id="cardContainer">
-        <img id="mainGif" src="ayar.gif" alt="pukpuk">
+        <img id="mainGif" src="wiyuu.gif" alt="pukpuk">
         
-        <h1 id="questionText">PANPİS BENNİMLE EVLENİR MİSİN??</h1>
+        <h1 id="questionText">HAYAL BENNİMLE EVLENİR MİSİN??</h1>
         
         <div class="buttons" id="buttonArea">
             <button id="evetBtn" onclick="kabulEt()">Evet</button>
             <button id="hayirBtn" onmouseover="kacir(event)" ontouchstart="kacir(event)">Hayır</button>
         </div>
     </div>
-
-    <!-- Müzik dosyası -->
-    <audio id="sarki" src="sarki.m4a" preload="auto"></audio>
-
     <script>
         const hayirBtn = document.getElementById('hayirBtn');
         const evetBtn = document.getElementById('evetBtn');
@@ -177,12 +173,11 @@
         }
 
         function kabulEt() {
-            mainGif.src = 'mutlu.gif';
+            mainGif.src = 'wwujyuy.gif';
             questionText.innerHTML = "KABUL EDECEGİNİ BİLİYİRDİM!! ";
             buttonArea.style.display = 'none';
             
-            sarki.play().catch(error => {
-                console.log("Müzik çalınamadı:", error);
+            
             });
         }
     </script>
